@@ -38,6 +38,7 @@ create table if not exists patient_examination(
     examination_id varchar(36) primary key,
     patient_id varchar(36) not null,
     medical_person_id varchar(36) not null,
+    examination_detail longtext not null,
     examination_datetime datetime not null,
     constraint fk_patient_id
         foreign key (patient_id)

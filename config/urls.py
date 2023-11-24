@@ -10,5 +10,5 @@ router.register(r'medical/registration', MedicalPersonIdentityViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('patient/', include(router.urls)),
 ]
