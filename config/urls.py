@@ -7,7 +7,7 @@ from emr.views import *
 
 router = DefaultRouter()
 
-router.register(r'patient', PatientIdentityViewSet)
+router.register(r'patients', PatientIdentityViewSet)
 router.register(r'status', PatientStatusViewSet)
 router.register(r'receptions', PatientReceptionViewSet)
 router.register(r'patient-registration', PatientListViewSet)

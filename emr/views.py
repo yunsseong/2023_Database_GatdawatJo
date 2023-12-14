@@ -25,6 +25,10 @@ class PatientReceptionViewSet(viewsets.ModelViewSet):
     queryset = PatientReception.objects.all()
     serializer_class = PatientReceptionSerializer
 
+    # def perform_create(self, serializer):
+    #     print(self.request)
+    #     serializer.save(patient = self.request.patient)
+
 class PatientStatusViewSet(viewsets.ModelViewSet):
     queryset = PatientStatus.objects.all()
     serializer_class = PatientStatusSerializer

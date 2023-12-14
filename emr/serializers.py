@@ -16,10 +16,14 @@ class PatientIdNameSerializer(serializers.ModelSerializer):
         fields = ['patient_id', 'patient_name']
 
 class PatientReceptionSerializer(serializers.ModelSerializer):
-    patient_id = PatientIdentitySerializer()
     class Meta:
         model = PatientReception
         fields = '__all__'
+    
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientIdentitySerializer(instance.patient).data
+        return response
 
 class PatientListSerializer(serializers.ModelSerializer):
     patient_id = PatientIdNameSerializer()
