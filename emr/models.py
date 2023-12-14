@@ -8,11 +8,13 @@ class PatientIdentity(models.Model):
     patient_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_name = models.CharField(max_length=60, null=False)
     patient_gender = models.CharField(max_length=1, blank=False, null=False)
-    patient_birthday = models.DateField(blank=False, null=False)
+    patient_birth = models.CharField(max_length=8, blank=False, null=False)
     patient_residence_number = models.CharField(max_length=8, blank=False, null=False)
     patient_phone_number = models.CharField(max_length=15, blank=False, null=False)
     patient_emergency_phone_number = models.CharField(max_length=15)
     patient_address = models.CharField(max_length=100)
+    patient_agree_essential_term = models.BooleanField(default=False)
+    patient_agree_optional_term = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'patient_identity'
@@ -31,15 +33,8 @@ class PatientReception(models.Model):
 
 
 class PatientList(models.Model):
-    class type(TextChoices):
-        NOMAL = "일반환자", "일반환자"
-        EMERGENCY = "중증환자", "중증환자"
-        VIP = "VIP", "VIP"
-
+    list_id = models.AutoField(primary_key=True)
     patient_id = models.ForeignKey('PatientIdentity', on_delete=models.CASCADE)
-    patient_type = models.CharField(choices=type.choices, max_length=10)
-    patient_reason_for_visit = models.TextField(blank=False, null=False)
-    date = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'patient_list'
