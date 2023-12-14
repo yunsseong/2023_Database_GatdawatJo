@@ -5,6 +5,10 @@ from django.shortcuts import get_object_or_404
 from .models import *
 from .serializers import *
 
+# class ViewSet(viewsets.ModelViewSet):
+#     queryset = .objects.all()
+#     serializer_class = Serializer
+
 class PatientIdentityViewSet(viewsets.ModelViewSet):
     queryset = PatientIdentity.objects.all()
     serializer_class = PatientIdentitySerializer
@@ -12,9 +16,14 @@ class PatientIdentityViewSet(viewsets.ModelViewSet):
     #     ins = serializer.save()
     #     reception_instance = PatientStatus(patient_id=ins.patient_id, patient_name=ins.patient_name, status="접수")
     #     reception_instance.save()
+
 class PatientListViewSet(viewsets.ModelViewSet):
     queryset = PatientList.objects.all()
     serializer_class = PatientListSerializer
+
+class PatientReceptionViewSet(viewsets.ModelViewSet):
+    queryset = PatientReception.objects.all()
+    serializer_class = PatientReceptionSerializer
 
 class PatientStatusViewSet(viewsets.ModelViewSet):
     queryset = PatientStatus.objects.all()

@@ -20,6 +20,15 @@ class PatientIdentity(models.Model):
     def __str__(self):
         return self.patient_name
 
+class PatientReception(models.Model):
+    reception_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    patient_id = models.ForeignKey('PatientIdentity', on_delete=models.CASCADE)
+    visit_reason = models.TextField(blank=False, null=False)
+    reception_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'patient_reception'
+
 
 class PatientList(models.Model):
     class type(TextChoices):
@@ -52,7 +61,6 @@ class PatientStatus(models.Model):
 
     class Meta:
         db_table = 'patient_status'
-
 
 class ClassificationCode(models.Model):
     classification_code = models.CharField(max_length=5, primary_key=True, blank=False, null=False)
