@@ -38,9 +38,9 @@ class MedicalPersonIdentityViewSet(viewsets.ModelViewSet):
     queryset = MedicalPersonIdentity.objects.all()
     serializer_class = MedicalPersonIdentitySerializer
 
-class PatientExaminationViewSet(viewsets.ModelViewSet):
-    queryset = PatientExamination.objects.all()
-    serializer_class = PatientExaminationSerializer
+class PatientChartViewSet(viewsets.ModelViewSet):
+    queryset = PatientChart.objects.all()
+    serializer_class = PatientChartSerializer
 
 class PatientInbodyViewSet(viewsets.ModelViewSet):
     queryset = PatientInbody.objects.all()

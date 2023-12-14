@@ -4,7 +4,7 @@ from .models import *
 
 admin.site.register(PatientIdentity)
 admin.site.register(MedicalPersonIdentity)
-admin.site.register(PatientExamination)
+admin.site.register(PatientChart)
 admin.site.register(PatientInbody)
 admin.site.register(PatientReception)
 admin.site.register(PatientXRay)

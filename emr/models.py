@@ -31,10 +31,9 @@ class PatientReception(models.Model):
     class Meta:
         db_table = 'patient_reception'
 
-
 class PatientList(models.Model):
     list_id = models.AutoField(primary_key=True)
-    patient_id = models.ForeignKey('PatientIdentity', on_delete=models.CASCADE)
+    patient = models.ForeignKey('PatientIdentity', on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'patient_list'
@@ -69,7 +68,7 @@ class MedicalPersonIdentity(models.Model):
     medical_person_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     medical_person_name = models.CharField(max_length=60, blank=False, null=False)
     medical_person_system_id = models.CharField(max_length=20, blank=False, null=False)
-    medical_person_gender = models.CharField(max_length=1, blank=False, null=False)
+    medical_person_gender = models.CharField(max_length=2, blank=False, null=False)
     medical_person_birthday = models.DateField(blank=False, null=False)
     medical_person_phone_number = models.CharField(max_length=15, blank=False, null=False)
     medical_person_main_address = models.TextField(blank=False, null=False)
@@ -82,24 +81,26 @@ class MedicalPersonIdentity(models.Model):
         db_table = 'medical_person_identity'
 
 
-class PatientExamination(models.Model):
-    examination_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class PatientChart(models.Model):
+    chart_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_id = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
     medical_person_id = models.ForeignKey(MedicalPersonIdentity, on_delete=models.CASCADE)
-    examination_detail = models.TextField(null=False, default='')
-    diagnosis_prescription = models.TextField(null=False, default='')
-    examination_datetime = models.DateTimeField(auto_now_add=True)
+    diagnosis = models.TextField(null=False, default='')
+    prescription = models.TextField(null=False, default='')
+    datetime = models.DateTimeField(auto_now_add=True)
+    image_id = models.UUIDField(default=uuid.uuid4, editable=False)
+    image_url = models.ImageField(upload_to="uploaded_pictures")
 
     def __str__(self):
-        return str(self.examination_id)
+        return str(self.chart_id)
 
     class Meta:
-        db_table = 'patient_examination'
+        db_table = 'patient_chart'
 
 
 class Image(models.Model):
     image_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    examination_id = models.ForeignKey(PatientExamination, on_delete=models.CASCADE)
+    chart_id = models.ForeignKey(PatientChart, on_delete=models.CASCADE)
     image_title = models.TextField(null=True, default="a.jpg")
     image_url = models.ImageField(null=False, upload_to="uploaded_pictures")
     image_context = models.TextField(null=False, default="a")
