@@ -231,4 +231,4 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij
 
-secret_settings.py
+secrete_settings.py
