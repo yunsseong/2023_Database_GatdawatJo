@@ -199,9 +199,6 @@ class Blood(models.Model):
     alt = models.FloatField(verbose_name='ALT')
     gamma_gt = models.FloatField(verbose_name='감마지피티')
 
-    def __str__(self):
-        return f'Blood Test #{self.id}'
-
     class Meta:
         db_table = "blood"
 
