@@ -65,7 +65,7 @@ class InspectSerializer(serializers.ModelSerializer):
 class InspectTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = InspectType
-        field = '__all__'
+        fields = '__all__'
 
 class InbodySerializer(serializers.ModelSerializer):
     class Meta:
