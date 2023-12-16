@@ -66,10 +66,13 @@ class PatientBloodSerializer(serializers.ModelSerializer):
         return response
 
 class DiseaseSerializer(serializers.ModelSerializer):
-    image_url = serializers.ImageField(use_url=True)
-
     class Meta:
         model = Image
+        fields = '__all__'
+
+class TreatmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Treatment
         fields = '__all__'
 
 class ImageSerializer(serializers.ModelSerializer):

@@ -12,6 +12,8 @@ from .serializers import *
 class PatientIdentityViewSet(viewsets.ModelViewSet):
     queryset = PatientIdentity.objects.all()
     serializer_class = PatientIdentitySerializer
+    filterset_fields = ('patient_id',)
+    
     # def perform_create(self, serializer):
     #     ins = serializer.save()
     #     reception_instance = PatientStatus(patient_id=ins.patient_id, patient_name=ins.patient_name, status="접수")
@@ -50,6 +52,14 @@ class PatientInbodyViewSet(viewsets.ModelViewSet):
 class PatientBloodViewSet(viewsets.ModelViewSet):
     queryset = PatientBlood.objects.all()
     serializer_class = PatientBloodSerializer
+
+class Disease(viewsets.ModelViewSet):
+    queryset = Disease.objects.all()
+    serializers_class = DiseaseSerializer
+
+class Treatment(viewsets.ModelViewSet):
+    queryset = Treatment.objects.all()
+    serializers_class = TreatmentSerializer
 
 class Image(viewsets.ModelViewSet):
     queryset = Image.objects.all()
