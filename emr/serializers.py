@@ -10,10 +10,10 @@ class PatientIdentitySerializer(serializers.ModelSerializer):
         model = PatientIdentity
         fields = '__all__'
 
-class PatientIdNameSerializer(serializers.ModelSerializer):
+class PatientSpecificSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientIdentity
-        fields = ['patient_id', 'patient_name']
+        fields = ['patient_id', 'patient_name', 'patient_gender']
 
 class PatientReceptionSerializer(serializers.ModelSerializer):
     class Meta:
