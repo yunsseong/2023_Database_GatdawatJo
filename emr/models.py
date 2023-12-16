@@ -2,8 +2,19 @@ from django.db import models
 import uuid
 
 from django.db.models import TextChoices
+from django.contrib.auth.models import AbstractUser
+from rest_framework.authtoken.models import Token
+from django.conf import settings
 
 
+class CustomUser(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # 추가 필드 등 사용자 모델 커스터마이징
+    name = models.CharField(max_length=100)
+    groups = models.ManyToManyField('auth.Group', related_name='custom_user_groups')
+    user_permissions = models.ManyToManyField(
+        'auth.Permission', related_name='custom_user_permissions'
+    )
 class PatientIdentity(models.Model):
     patient_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_name = models.CharField(max_length=60, null=False)
@@ -64,6 +75,7 @@ class ClassificationCode(models.Model):
 
 class MedicalPersonIdentity(models.Model):
     medical_person_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     medical_person_name = models.CharField(max_length=60, blank=False, null=False)
     medical_person_system_id = models.CharField(max_length=20, blank=False, null=False)
     medical_person_gender = models.CharField(max_length=1, blank=False, null=False)
@@ -140,3 +152,20 @@ class PatientXRay(models.Model):
 
     class Meta:
         db_table = 'patient_xray'
+
+
+
+class MedicalProfessional(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
+    birth_date = models.DateField()
+    email = models.EmailField()
+    address = models.CharField(max_length=255)
+    license_number = models.CharField(max_length=50)
+    classification_code = models.ForeignKey('ClassificationCode', on_delete=models.PROTECT)
+
+
+
+
