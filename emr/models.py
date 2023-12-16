@@ -117,9 +117,6 @@ class PatientInbody(models.Model):
     weight = models.FloatField()
     muscle_mass = models.FloatField()
     body_fat_mass = models.FloatField()
-    total_body_water = models.FloatField()
-    protein = models.FloatField()
-    minerals = models.FloatField()
     bmi = models.FloatField()
     percent_body_fat = models.FloatField()
     right_arm = models.FloatField()
@@ -127,8 +124,7 @@ class PatientInbody(models.Model):
     trunk = models.FloatField()
     right_leg = models.FloatField()
     left_leg = models.FloatField()
-    ecw_ratio = models.FloatField()
-    record_date = models.DateField()
+    record_date = models.DateTimeField(auto_now_add=True)
     original_file_location = models.BinaryField()
 
     class Meta:
