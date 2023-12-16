@@ -21,7 +21,7 @@ from rest_framework.permissions import IsAuthenticated
 
 class PatientIdentityViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
-     # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     queryset = PatientIdentity.objects.all()
     serializer_class = PatientIdentitySerializer
