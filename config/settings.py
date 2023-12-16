@@ -140,6 +140,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+LOGIN_URL = 'login'
+
 # AWS S3 storage setting
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3BotoStorage'
 # AWS_STORAGE_BUCKET_NAME = ''
