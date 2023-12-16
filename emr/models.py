@@ -83,8 +83,8 @@ class MedicalPersonIdentity(models.Model):
 
 class PatientChart(models.Model):
     chart_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    patient_id = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
-    medical_person_id = models.ForeignKey(MedicalPersonIdentity, on_delete=models.CASCADE)
+    patient = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
+    medical = models.ForeignKey(MedicalPersonIdentity, on_delete=models.CASCADE)
     diagnosis = models.TextField(null=False, default='')
     inspect = models.ManyToManyField('InspectType', related_name='charts')
     disease = models.ManyToManyField('Disease', related_name='charts')

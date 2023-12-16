@@ -50,6 +50,12 @@ class PatientChartSerializer(serializers.ModelSerializer):
         model = PatientChart
         fields = '__all__'
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientIdentitySerializer(instance.patient).data
+        response['medical'] = MedicalPersonIdentitySerializer(instance.medical).data
+        return response
+
 class InspectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Inspect
