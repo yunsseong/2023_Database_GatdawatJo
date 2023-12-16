@@ -15,6 +15,9 @@ router.register(r'patient-registration', PatientListViewSet)
 router.register(r'chart', PatientChartViewSet)
 router.register(r'inbody', PatientInbodyViewSet)
 router.register(r'blood', PatientBloodViewSet)
+router.register(r'medication', MedicationViewSet)
+router.register(r'inspect', InspectViewSet)
+router.register(r'inspect_type', InspectTypeViewSet)
 # router.register(r'')
 
 urlpatterns = [

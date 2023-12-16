@@ -50,6 +50,22 @@ class PatientChartSerializer(serializers.ModelSerializer):
         model = PatientChart
         fields = '__all__'
 
+class InspectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Inspect
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientSpecificSerializer(instance.patient).data
+        response['inspect'] = InspectTypeSerializer(instance.inspect_type_id).data
+        return response
+
+class InspectTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InspectType
+        field = '__all__'
+
 class PatientInbodySerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientInbody
@@ -73,6 +89,11 @@ class DiseaseSerializer(serializers.ModelSerializer):
 class TreatmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Treatment
+        fields = '__all__'
+
+class MedicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medication
         fields = '__all__'
 
 class ImageSerializer(serializers.ModelSerializer):

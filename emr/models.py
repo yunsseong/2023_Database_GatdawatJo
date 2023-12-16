@@ -86,7 +86,10 @@ class PatientChart(models.Model):
     patient_id = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
     medical_person_id = models.ForeignKey(MedicalPersonIdentity, on_delete=models.CASCADE)
     diagnosis = models.TextField(null=False, default='')
-    prescription = models.TextField(null=False, default='')
+    inspect = models.ManyToManyField('InspectType', related_name='charts')
+    disease = models.ManyToManyField('Disease', related_name='charts')
+    treatment = models.ManyToManyField('Treatment', related_name='charts')
+    medication = models.ManyToManyField('Medication', related_name='charts')
     datetime = models.DateTimeField(auto_now_add=True)
     image_id = models.UUIDField(default=uuid.uuid4, editable=False)
     image_url = models.ImageField(upload_to="uploaded_pictures")
@@ -106,23 +109,56 @@ class Disease(models.Model):
         return self.disease_name
 
     class Meta:
-        verbose_name = "질병"
-        verbose_name_plural = "질병들"
+        verbose_name = "Disease"
+        verbose_name_plural = "Diseases"
 
 from django.db import models
 
 class Treatment(models.Model):
-    treatment_id = models.CharField(max_length=50, unique=True)
+    treatment_code = models.CharField(primary_key=True, max_length=50, unique=True)
     treatment_name = models.CharField(max_length=200)
-    treatment_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    treatment_cost = models.IntegerField()
 
     def __str__(self):
         return self.treatment_name
 
     class Meta:
-        verbose_name = "치료"
-        verbose_name_plural = "치료들"
+        verbose_name = "Treatment"
+        verbose_name_plural = "Treatments"
 
+
+class Medication(models.Model):
+    medication_code = models.CharField(primary_key=True, max_length=50, unique=True)
+    medication_name = models.CharField(max_length=200)
+    medication_type = models.CharField(max_length=100)
+    medication_description = models.TextField()
+    administration_method = models.TextField()
+    medication_cost = models.IntegerField()
+
+    def __str__(self):
+        return self.medication_name
+
+    class Meta:
+        verbose_name = "약물"
+        verbose_name_plural = "Medication"
+
+class InspectType(models.Model):
+    inspect_type_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    inspect_type = models.CharField(max_length=50, verbose_name='검사 종류')
+    inspect_cost = models.IntegerField()
+
+    def __str__(self):
+        return self.inspect_type
+
+class Inspect(models.Model):
+    inspect_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    patient_id = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
+    inspect_item = models.ForeignKey(InspectType, on_delete=models.CASCADE)
+    inspect_date = models.DateTimeField(auto_now=True)
+    inspect_content = models.TextField(verbose_name='검사 내용')
+
+    class Meta:
+        db_table = "inspect"
 
 class Image(models.Model):
     image_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -134,7 +170,6 @@ class Image(models.Model):
 
     class Meta:
         db_table = "image"
-
 
 class PatientInbody(models.Model):
     inbody_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

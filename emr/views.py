@@ -45,6 +45,14 @@ class PatientChartViewSet(viewsets.ModelViewSet):
     serializer_class = PatientChartSerializer
     filterset_fields = ('patient',)
 
+class InspectViewSet(viewsets.ModelViewSet):
+    queryset = Inspect.objects.all()
+    serializer_class = InspectSerializer
+
+class InspectTypeViewSet(viewsets.ModelViewSet):
+    queryset = InspectType.objects.all()
+    serializer_class = InspectTypeSerializer
+
 class PatientInbodyViewSet(viewsets.ModelViewSet):
     queryset = PatientInbody.objects.all()
     serializer_class = PatientInbodySerializer
@@ -53,13 +61,17 @@ class PatientBloodViewSet(viewsets.ModelViewSet):
     queryset = PatientBlood.objects.all()
     serializer_class = PatientBloodSerializer
 
-class Disease(viewsets.ModelViewSet):
+class DiseaseViewSet(viewsets.ModelViewSet):
     queryset = Disease.objects.all()
     serializers_class = DiseaseSerializer
 
-class Treatment(viewsets.ModelViewSet):
+class TreatmentViewSet(viewsets.ModelViewSet):
     queryset = Treatment.objects.all()
     serializers_class = TreatmentSerializer
+
+class MedicationViewSet(viewsets.ModelViewSet):
+    queryset = Medication.objects.all()
+    serializers_class = MedicationSerializer
 
 class Image(viewsets.ModelViewSet):
     queryset = Image.objects.all()
