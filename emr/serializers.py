@@ -32,7 +32,7 @@ class PatientListSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['patient'] = PatientIdNameSerializer(instance.patient).data
+        response['patient'] = PatientSpecificSerializer(instance.patient).data
         return response
 
 class PatientStatusSerializer(serializers.ModelSerializer):
