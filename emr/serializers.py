@@ -15,9 +15,9 @@ class PatientSpecificSerializer(serializers.ModelSerializer):
         model = PatientIdentity
         fields = ['patient_id', 'patient_name', 'patient_gender']
 
-class PatientReceptionSerializer(serializers.ModelSerializer):
+class ReceptionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PatientReception
+        model = Reception
         fields = '__all__'
     
     def to_representation(self, instance):
@@ -35,19 +35,14 @@ class PatientListSerializer(serializers.ModelSerializer):
         response['patient'] = PatientSpecificSerializer(instance.patient).data
         return response
 
-class PatientStatusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PatientStatus
-        field = '__all__'
-
 class MedicalPersonIdentitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicalPersonIdentity
         fields = '__all__'
 
-class PatientChartSerializer(serializers.ModelSerializer):
+class ChartSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PatientChart
+        model = Chart
         fields = '__all__'
 
     def to_representation(self, instance):
@@ -72,20 +67,20 @@ class InspectTypeSerializer(serializers.ModelSerializer):
         model = InspectType
         field = '__all__'
 
-class PatientInbodySerializer(serializers.ModelSerializer):
+class InbodySerializer(serializers.ModelSerializer):
     class Meta:
-        model = PatientInbody
+        model = Inbody
         fields = '__all__'
 
-class PatientBloodSerializer(serializers.ModelSerializer):
+class BloodSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PatientBlood
+        model = Blood
         fields = '__all__'
 
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        response['patient'] = PatientSpecificSerializer(instance.patient).data
-        return response
+    # def to_representation(self, instance):
+    #     response = super().to_representation(instance)
+    #     response['patient'] = PatientSpecificSerializer(instance.patient).data
+    #     return response
 
 class DiseaseSerializer(serializers.ModelSerializer):
     class Meta:

@@ -22,14 +22,14 @@ class PatientIdentity(models.Model):
     def __str__(self):
         return self.patient_name
 
-class PatientReception(models.Model):
+class Reception(models.Model):
     reception_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient = models.ForeignKey('PatientIdentity', on_delete=models.CASCADE, related_name="patient",  default="")
     visit_reason = models.TextField(blank=False, null=False)
     reception_date = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'patient_reception'
+        db_table = 'reception'
 
 class PatientList(models.Model):
     list_id = models.AutoField(primary_key=True)
@@ -37,24 +37,6 @@ class PatientList(models.Model):
 
     class Meta:
         db_table = 'patient_list'
-
-
-class PatientStatus(models.Model):
-    class Status(TextChoices):
-        RECEPTION = "접수", "접수"
-        EXAMINATION = "진료", "진료"
-        TREATMENT = "치료", "치료"
-        PHYSIOTHERAPY = "물리치료", "물리치료"
-        PURCHASE = "수납", "수납"
-
-    status_id = models.IntegerField(primary_key=True, auto_created=True)
-    patient_id = models.CharField(max_length=40)
-    patient_name = models.CharField(max_length=60, null=False)
-    status = models.CharField(choices=Status.choices, max_length=10)
-    date = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'patient_status'
 
 class ClassificationCode(models.Model):
     classification_code = models.CharField(max_length=5, primary_key=True, blank=False, null=False)
@@ -81,7 +63,7 @@ class MedicalPersonIdentity(models.Model):
         db_table = 'medical_person_identity'
 
 
-class PatientChart(models.Model):
+class Chart(models.Model):
     chart_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
     medical = models.ForeignKey(MedicalPersonIdentity, on_delete=models.CASCADE)
@@ -98,7 +80,7 @@ class PatientChart(models.Model):
         return str(self.chart_id)
 
     class Meta:
-        db_table = 'patient_chart'
+        db_table = 'chart'
 
 class Disease(models.Model):
     disease_code = models.CharField(max_length=50, unique=True)
@@ -109,8 +91,7 @@ class Disease(models.Model):
         return self.disease_name
 
     class Meta:
-        verbose_name = "Disease"
-        verbose_name_plural = "Diseases"
+        db_table = "disease"
 
 from django.db import models
 
@@ -123,8 +104,7 @@ class Treatment(models.Model):
         return self.treatment_name
 
     class Meta:
-        verbose_name = "Treatment"
-        verbose_name_plural = "Treatments"
+        db_table = "treatment"
 
 
 class Medication(models.Model):
@@ -139,8 +119,7 @@ class Medication(models.Model):
         return self.medication_name
 
     class Meta:
-        verbose_name = "약물"
-        verbose_name_plural = "Medication"
+        db_table = "medication"
 
 class InspectType(models.Model):
     inspect_type_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -149,6 +128,9 @@ class InspectType(models.Model):
 
     def __str__(self):
         return self.inspect_type
+
+    class Meta:
+        db_table = "inspect_type"
 
 class Inspect(models.Model):
     inspect_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -162,7 +144,7 @@ class Inspect(models.Model):
 
 class Image(models.Model):
     image_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    chart_id = models.ForeignKey(PatientChart, on_delete=models.CASCADE)
+    chart_id = models.ForeignKey(Chart, on_delete=models.CASCADE)
     image_title = models.TextField(null=True, default="a.jpg")
     image_url = models.ImageField(null=False, upload_to="uploaded_pictures")
     image_context = models.TextField(null=False, default="a")
@@ -171,7 +153,7 @@ class Image(models.Model):
     class Meta:
         db_table = "image"
 
-class PatientInbody(models.Model):
+class Inbody(models.Model):
     inbody_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_id = models.ForeignKey('PatientIdentity', on_delete=models.PROTECT)
     weight = models.FloatField()
@@ -188,11 +170,11 @@ class PatientInbody(models.Model):
     original_file_location = models.BinaryField()
 
     class Meta:
-        db_table = 'patient_inbody'
+        db_table = 'inbody'
 
-class PatientBlood(models.Model):
+class Blood(models.Model):
     blood_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    patient = models.ForeignKey('PatientIdentity', on_delete=models.PROTECT)
+    patient_id = models.ForeignKey('PatientIdentity', on_delete=models.PROTECT)
     hemoglobin = models.FloatField(verbose_name='혈색소')
     fasting_blood_sugar = models.FloatField(verbose_name='공복혈당')
     total_cholesterol = models.FloatField(verbose_name='총 콜레스트롤')
@@ -208,8 +190,11 @@ class PatientBlood(models.Model):
     def __str__(self):
         return f'Blood Test #{self.id}'
 
+    class Meta:
+        db_table = "blood"
 
-class PatientXRay(models.Model):
+
+class XRay(models.Model):
     xray_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_id = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
     medical_person_id = models.ForeignKey(MedicalPersonIdentity, on_delete=models.PROTECT)
@@ -217,4 +202,4 @@ class PatientXRay(models.Model):
     original_xray_location = models.BinaryField()
 
     class Meta:
-        db_table = 'patient_xray'
+        db_table = 'xray'

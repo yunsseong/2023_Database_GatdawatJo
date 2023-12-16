@@ -23,26 +23,22 @@ class PatientListViewSet(viewsets.ModelViewSet):
     queryset = PatientList.objects.all()
     serializer_class = PatientListSerializer
 
-class PatientReceptionViewSet(viewsets.ModelViewSet):
-    queryset = PatientReception.objects.all()
-    serializer_class = PatientReceptionSerializer
+class ReceptionViewSet(viewsets.ModelViewSet):
+    queryset = Reception.objects.all()
+    serializer_class = ReceptionSerializer
     filterset_fields = ('patient',)
 
     # def perform_create(self, serializer):
     #     print(self.request)
     #     serializer.save(patient = self.request.patient)
 
-class PatientStatusViewSet(viewsets.ModelViewSet):
-    queryset = PatientStatus.objects.all()
-    serializer_class = PatientStatusSerializer
-
 class MedicalPersonIdentityViewSet(viewsets.ModelViewSet):
     queryset = MedicalPersonIdentity.objects.all()
     serializer_class = MedicalPersonIdentitySerializer
 
-class PatientChartViewSet(viewsets.ModelViewSet):
-    queryset = PatientChart.objects.all()
-    serializer_class = PatientChartSerializer
+class ChartViewSet(viewsets.ModelViewSet):
+    queryset = Chart.objects.all()
+    serializer_class = ChartSerializer
     filterset_fields = ('patient',)
 
 class InspectViewSet(viewsets.ModelViewSet):
@@ -53,13 +49,13 @@ class InspectTypeViewSet(viewsets.ModelViewSet):
     queryset = InspectType.objects.all()
     serializer_class = InspectTypeSerializer
 
-class PatientInbodyViewSet(viewsets.ModelViewSet):
-    queryset = PatientInbody.objects.all()
-    serializer_class = PatientInbodySerializer
+class InbodyViewSet(viewsets.ModelViewSet):
+    queryset = Inbody.objects.all()
+    serializer_class = InbodySerializer
 
-class PatientBloodViewSet(viewsets.ModelViewSet):
-    queryset = PatientBlood.objects.all()
-    serializer_class = PatientBloodSerializer
+class BloodViewSet(viewsets.ModelViewSet):
+    queryset = Blood.objects.all()
+    serializer_class = BloodSerializer
 
 class DiseaseViewSet(viewsets.ModelViewSet):
     queryset = Disease.objects.all()
