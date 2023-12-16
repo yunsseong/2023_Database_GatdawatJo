@@ -129,6 +129,24 @@ class PatientInbody(models.Model):
     class Meta:
         db_table = 'patient_inbody'
 
+class PatientBlood(models.Model):
+    blood_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    patient = models.ForeignKey('PatientIdentity', on_delete=models.PROTECT)
+    hemoglobin = models.FloatField(verbose_name='혈색소')
+    fasting_blood_sugar = models.FloatField(verbose_name='공복혈당')
+    total_cholesterol = models.FloatField(verbose_name='총 콜레스트롤')
+    hdl_cholesterol = models.FloatField(verbose_name='HDL-콜레스트롤')
+    triglycerides = models.FloatField(verbose_name='중성지방')
+    ldl_cholesterol = models.FloatField(verbose_name='LDL-콜레스트롤')
+    serum_creatinine = models.FloatField(verbose_name='혈청크레아티닌')
+    glomerular_filtration_rate = models.FloatField(verbose_name='신사구체여과율')
+    ast = models.FloatField(verbose_name='AST')
+    alt = models.FloatField(verbose_name='ALT')
+    gamma_gt = models.FloatField(verbose_name='감마지피티')
+
+    def __str__(self):
+        return f'Blood Test #{self.id}'
+
 
 class PatientXRay(models.Model):
     xray_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PatientIdentity, PatientInbody, MedicalPersonIdentity, PatientStatus, PatientList, PatientChart,Image, PatientReception
+from .models import *
 
 # class a(serializers.ModelSerializer):
 #     class Meta:
@@ -54,6 +54,16 @@ class PatientInbodySerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientInbody
         fields = '__all__'
+
+class PatientBloodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PatientBlood
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientSpecificSerializer(instance.patient).data
+        return response
 
 class ImageSerializer(serializers.ModelSerializer):
     image_url = serializers.ImageField(use_url=True)

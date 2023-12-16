@@ -46,6 +46,10 @@ class PatientInbodyViewSet(viewsets.ModelViewSet):
     queryset = PatientInbody.objects.all()
     serializer_class = PatientInbodySerializer
 
+class PatientBloodViewSet(viewsets.ModelViewSet):
+    queryset = PatientBlood.objects.all()
+    serializer_class = PatientBloodSerializer
+
 class Image(viewsets.ModelViewSet):
     queryset = Image.objects.all()
     serializers_class = ImageSerializer
