@@ -7,10 +7,15 @@ from emr.views import *
 
 router = DefaultRouter()
 
-router.register(r'patient', PatientIdentityViewSet)
-router.register(r'status', PatientStatusViewSet)
-router.register(r'receptions', PatientListViewSet)
-router.register(r'patient-registration', PatientListViewSet)
+router.register(r'patients', PatientIdentityViewSet)
+router.register(r'receptions', ReceptionViewSet)
+router.register(r'list', PatientListViewSet)
+router.register(r'chart', ChartViewSet)
+router.register(r'inbody', InbodyViewSet)
+router.register(r'blood', BloodViewSet)
+router.register(r'medication', MedicationViewSet)
+router.register(r'inspect', InspectViewSet)
+router.register(r'inspect_type', InspectTypeViewSet)
 # router.register(r'')
 
 urlpatterns = [

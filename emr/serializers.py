@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, MedicalProfessional, PatientIdentity, PatientInbody, MedicalPersonIdentity, PatientStatus, PatientList, PatientExamination,Image
+from .models import *
 
 # class a(serializers.ModelSerializer):
 #     class Meta:
@@ -10,34 +10,91 @@ class PatientIdentitySerializer(serializers.ModelSerializer):
         model = PatientIdentity
         fields = '__all__'
 
-class PatientIdNameSerializer(serializers.ModelSerializer):
+class PatientSpecificSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientIdentity
-        fields = ['patient_id', 'patient_name']
+        fields = ['patient_id', 'patient_name', 'patient_gender']
+
+class ReceptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reception
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientIdentitySerializer(instance.patient).data
+        return response
+
 class PatientListSerializer(serializers.ModelSerializer):
-    patient_id = PatientIdNameSerializer()
     class Meta:
         model = PatientList
         fields = '__all__'
 
-class PatientStatusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PatientStatus
-        field = '__all__'
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientSpecificSerializer(instance.patient).data
+        return response
 
 class MedicalPersonIdentitySerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicalPersonIdentity
         fields = '__all__'
 
-class PatientExaminationSerializer(serializers.ModelSerializer):
+class ChartSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PatientExamination
+        model = Chart
         fields = '__all__'
 
-class PatientInbodySerializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientIdentitySerializer(instance.patient).data
+        response['medical'] = MedicalPersonIdentitySerializer(instance.medical).data
+        return response
+
+class InspectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PatientInbody
+        model = Inspect
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientSpecificSerializer(instance.patient).data
+        response['inspect'] = InspectTypeSerializer(instance.inspect_type_id).data
+        return response
+
+class InspectTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InspectType
+        fields = '__all__'
+
+class InbodySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Inbody
+        fields = '__all__'
+
+class BloodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blood
+        fields = '__all__'
+
+    # def to_representation(self, instance):
+    #     response = super().to_representation(instance)
+    #     response['patient'] = PatientSpecificSerializer(instance.patient).data
+    #     return response
+
+class DiseaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = '__all__'
+
+class TreatmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Treatment
+        fields = '__all__'
+
+class MedicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medication
         fields = '__all__'
 
 class ImageSerializer(serializers.ModelSerializer):
