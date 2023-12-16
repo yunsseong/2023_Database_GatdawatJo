@@ -41,6 +41,7 @@ class MedicalPersonIdentityViewSet(viewsets.ModelViewSet):
 class PatientChartViewSet(viewsets.ModelViewSet):
     queryset = PatientChart.objects.all()
     serializer_class = PatientChartSerializer
+    filterset_fields = ('patient',)
 
 class PatientInbodyViewSet(viewsets.ModelViewSet):
     queryset = PatientInbody.objects.all()

@@ -97,6 +97,32 @@ class PatientChart(models.Model):
     class Meta:
         db_table = 'patient_chart'
 
+class Disease(models.Model):
+    disease_code = models.CharField(max_length=50, unique=True)
+    disease_name = models.CharField(max_length=200)
+    disease_description = models.TextField()
+
+    def __str__(self):
+        return self.disease_name
+
+    class Meta:
+        verbose_name = "질병"
+        verbose_name_plural = "질병들"
+
+from django.db import models
+
+class Treatment(models.Model):
+    treatment_id = models.CharField(max_length=50, unique=True)
+    treatment_name = models.CharField(max_length=200)
+    treatment_cost = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.treatment_name
+
+    class Meta:
+        verbose_name = "치료"
+        verbose_name_plural = "치료들"
+
 
 class Image(models.Model):
     image_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
