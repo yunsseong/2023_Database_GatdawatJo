@@ -102,7 +102,7 @@ class InbodyViewSet(viewsets.ModelViewSet):
 
     queryset = Inbody.objects.all()
     serializer_class = InbodySerializer
-    filterset_fields = ('patient_id',)
+    filterset_fields = ('patient',)
 
 class BloodViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
