@@ -218,7 +218,7 @@ class Physio(models.Model):
         T = "회", "회"
         SET = "세트", "세트"
 
-    class therapyType(modles.TextChoices):
+    class therapyType(models.TextChoices):
         EXERCISE = "운동 치료", "운동 치료"
         ELECTRICAL_STIMULATION = "전기 자극 치료", "전기 자극 치료"
         MASSAGE = "마사지 치료", "마사지 치료"
