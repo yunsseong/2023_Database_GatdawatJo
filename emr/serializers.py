@@ -9,7 +9,7 @@ class PatientIdentitySerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientIdentity
         fields = '__all__'
-
+        
 class PatientSpecificSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientIdentity
