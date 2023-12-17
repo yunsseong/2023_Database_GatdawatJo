@@ -197,6 +197,7 @@ class Blood(models.Model):
     ast = models.FloatField(verbose_name='AST')
     alt = models.FloatField(verbose_name='ALT')
     gamma_gt = models.FloatField(verbose_name='감마지피티')
+    record_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "blood"
