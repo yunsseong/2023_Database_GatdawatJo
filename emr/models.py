@@ -221,7 +221,7 @@ class Physio(models.Model):
     physio_name = models.CharField(max_length=15)
     physio_desciption = models.TextField()
     physio_kind = models.CharField(max_length=10)
-    physio_value = models.IntegerField()
+    physio_value = models.TextField()
     physio_type = models.CharField(choices=type.choices, max_length=10)
     physio_cost = models.IntegerField()
 
