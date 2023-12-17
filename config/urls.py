@@ -20,7 +20,7 @@ router.register(r'disease', DiseaseViewSet)
 router.register(r'treatment', TreatmentViewSet)
 router.register(r'medical', MedicalPersonIdentityViewSet)
 router.register(r'physio', PhysioViewSet)
-router.register(r'reservation', ReceptionViewSet)
+router.register(r'reservation', ReservationViewSet)
 # router.register(r'')
 
 urlpatterns = [
