@@ -166,7 +166,7 @@ class Image(models.Model):
 
 class Inbody(models.Model):
     inbody_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    patient_id = models.ForeignKey('PatientIdentity', on_delete=models.PROTECT)
+    patient = models.ForeignKey('PatientIdentity', on_delete=models.PROTECT)
     weight = models.FloatField()
     muscle_mass = models.FloatField()
     body_fat_mass = models.FloatField()
