@@ -35,7 +35,7 @@ class ReceptionViewSet(viewsets.ModelViewSet):
 
     queryset = Reception.objects.all()
     serializer_class = ReceptionSerializer
-    filterset_fields = ('patient',)
+    filterset_fields = ('patient', 'reception_id')
 
     # def perform_create(self, serializer):
     #     print(self.request)
