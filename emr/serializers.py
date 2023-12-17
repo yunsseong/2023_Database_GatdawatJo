@@ -145,7 +145,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = User
         fields = ('id', 'username', 'email', 'name')  # CustomUser 모델의 필드 선택
 
 class MedicalProfessionalSerializer(serializers.ModelSerializer):
