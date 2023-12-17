@@ -177,7 +177,7 @@ class PhysioTypeViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    queryset = PhysiotType.objects.all()
+    queryset = PhysioType.objects.all()
     serializer_class = PhysioTypeSerializer
 
 class CreateMedicalProfessional(APIView):

@@ -133,7 +133,7 @@ class PhysioSerializer(serializers.ModelSerializer):
 
 class PhysioTypeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PhysiotType
+        model = PhysioType
         fields = '__all__'
 
 class ReservationSerializer(serializers.ModelSerializer):
