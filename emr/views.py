@@ -21,6 +21,13 @@ class PatientIdentityViewSet(viewsets.ModelViewSet):
     queryset = PatientIdentity.objects.all()
     serializer_class = PatientIdentitySerializer
     filterset_fields = ('patient_id',)
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        decrypted_residence_number = decrypt_data(instance.patient_residence_number)
+        instance.patient_residence_number = decrypted_residence_number
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
     
 class PatientListViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
