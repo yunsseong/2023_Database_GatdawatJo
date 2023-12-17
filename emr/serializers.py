@@ -14,6 +14,11 @@ class PatientIdentitySerializer(serializers.ModelSerializer):
         validated_data['patient_residence_number'] = encrypted_residence_number
         return super().create(validated_data)
 
+    def get_decrypted_residence_number(self, obj):
+        encrypted_residence_number = obj.patient_residence_number  # 암호화된 주민번호 필드
+        decrypted_residence_number = decrypt_data(encrypted_residence_number)
+        return decrypted_residence_number
+
 def encrypt_data(data):
     key = settings.RESIDENCE_KEY
 
@@ -21,6 +26,14 @@ def encrypt_data(data):
     encrypt_data = cipher_suite.encrypt(data.encode('utf-8')).decode('utf-8')
 
     return encrypt_data
+
+def decrypt_data(encrypted_data):
+    key = settings.RESIDENCE_KEY
+
+    cipher_suite = Fernet(key)
+    decrypted_data = cipher_suite.decrypt(encrypted_data.encode('utf-8')).decode('utf-8')
+
+    return decrypted_data
 
 class PatientSpecificSerializer(serializers.ModelSerializer):
     class Meta:
