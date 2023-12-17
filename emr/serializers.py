@@ -121,9 +121,9 @@ class MedicationSerializer(serializers.ModelSerializer):
         model = Medication
         fields = '__all__'
 
-class PhysioSerializer(serializers.ModelSerializer):
+class PatientPhysioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Physio
+        model = PatientPhysio
         fields = '__all__'
 
     def to_representation(self, instance):

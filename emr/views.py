@@ -170,8 +170,8 @@ class PhysioViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    queryset = Physio.objects.all()
-    serializer_class = PhysioSerializer
+    queryset = PatientPhysio.objects.all()
+    serializer_class = PatientPhysioSerializer
 
 class PhysioTypeViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]

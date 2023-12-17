@@ -203,7 +203,7 @@ class XRay(models.Model):
     class Meta:
         db_table = 'xray'
 
-class Physio(models.Model):
+class PatientPhysio(models.Model):
     patient_physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     physio = models.ManyToManyField('PhysioType', related_name='physios')
     physio_value = models.CharField(max_length=10)
