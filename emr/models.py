@@ -80,6 +80,7 @@ class Chart(models.Model):
     diagnosis = models.TextField(null=False, default='')
     inspect = models.ManyToManyField('InspectType', related_name='charts')
     disease = models.ManyToManyField('Disease', related_name='charts')
+    doctor_opinion = models.TextField(null=False, default='')
     treatment = models.ManyToManyField('Treatment', related_name='charts')
     medication = models.ManyToManyField('Medication', related_name='charts')
     datetime = models.DateTimeField(auto_now_add=True)
