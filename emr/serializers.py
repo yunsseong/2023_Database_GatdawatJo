@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from cryptography.fernet import Fernet
 from .models import *
-import secrete_settings
 import base64
 
 class PatientIdentitySerializer(serializers.ModelSerializer):
@@ -16,7 +15,7 @@ class PatientIdentitySerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 def encrypt_data(data):
-    key = secrete_settings.SECRET_KEY
+    key = settings.RESIDENCE_KEY
 
     cipher_suite=Fernet(key)
     encrypt_data = cipher_suite.encrypt(data.encode('utf-8')).decode('utf-8')
