@@ -139,7 +139,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 LOGIN_URL = 'login'
-RESIDENCE_KEY = b'PjJFCzxlbRNCqOV1g3V3cTP22zm3d1lGp56B5U765M0='
+RESIDENCE_KEY = 1
 
 # AWS S3 storage setting
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3BotoStorage'
