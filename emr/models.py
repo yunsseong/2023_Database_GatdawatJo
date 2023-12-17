@@ -220,6 +220,7 @@ class Physio(models.Model):
     physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     physio_name = models.CharField(max_length=15)
     physio_desciption = models.TextField()
+    physio_value = models.IntegerField()
     physio_type = models.CharField(choices=type.choices, max_length=10)
     physio_cost = models.IntegerField()
 
