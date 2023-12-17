@@ -122,28 +122,28 @@ class DiseaseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     queryset = Disease.objects.all()
-    serializers_class = DiseaseSerializer
+    serializer_class = DiseaseSerializer
 
 class TreatmentViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     queryset = Treatment.objects.all()
-    serializers_class = TreatmentSerializer
+    serializer_class = TreatmentSerializer
 
 class MedicationViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     queryset = Medication.objects.all()
-    serializers_class = MedicationSerializer
+    serializer_class = MedicationSerializer
 
 class Image(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     queryset = Image.objects.all()
-    serializers_class = ImageSerializer
+    serializer_class = ImageSerializer
 
 class CreateMedicalProfessional(APIView):
     def post(self, request):
