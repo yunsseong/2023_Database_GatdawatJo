@@ -1,3 +1,5 @@
+import base64
+import os
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -13,7 +15,9 @@ from rest_framework.status import HTTP_200_OK
 from django.contrib.auth import authenticate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+from binascii import Error
 
 # class ViewSet(viewsets.ModelViewSet):
 #     queryset = .objects.all()
@@ -82,7 +86,7 @@ class ChartViewSet(viewsets.ModelViewSet):
 
     queryset = Chart.objects.all()
     serializer_class = ChartSerializer
-    filterset_fields = ('patient',)
+    filterset_fields = ('chart_id',)
 
 class InspectViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
