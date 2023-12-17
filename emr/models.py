@@ -230,7 +230,7 @@ class Physio(models.Model):
     physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     physio_name = models.CharField(max_length=15)
     physio_desciption = models.TextField()
-    physio_kind = models.CharField(choices=TherapyType.choices, max_length=10, default='')
+    physio_kind = models.CharField(choices=TherapyType.choices, max_length=10, default="운동 치료")
     physio_value = models.TextField()
     physio_type = models.CharField(choices=type.choices, max_length=10)
     physio_cost = models.IntegerField()
