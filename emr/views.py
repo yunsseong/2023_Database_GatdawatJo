@@ -20,7 +20,7 @@ class PatientIdentityViewSet(viewsets.ModelViewSet):
     
     queryset = PatientIdentity.objects.all()
     serializer_class = PatientIdentitySerializer
-    filter_fields = ('patient_id',)
+    filterset_fields = ('patient_id',)
     
 class PatientListViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
