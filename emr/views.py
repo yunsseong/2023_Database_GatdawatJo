@@ -25,9 +25,21 @@ class PatientIdentityViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         decrypted_residence_number = decrypt_data(instance.patient_residence_number)
-        instance.patient_residence_number = decrypted_residence_number
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+
+        # 다른 필드들도 복호화하여 응답에 추가
+        response_data = {
+            'patient_id': instance.patient_id,
+            'patient_name': instance.patient_name,
+            'patient_gender': instance.patient_gender,
+            'patient_birth': instance.patient_birth,
+            'patient_residence_number': decrypted_residence_number,
+            'patient_phone_number': instance.patient_phone_number,
+            'patient_emergency_phone_number': instance.patient_emergency_phone_number,
+            'patient_address': instance.patient_address,
+            'patient_agree_essential_term': instance.patient_agree_essential_term,
+            'patient_agree_optional_term': instance.patient_agree_optional_term,
+        }
+        return Response(response_data)
     
 class PatientListViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
