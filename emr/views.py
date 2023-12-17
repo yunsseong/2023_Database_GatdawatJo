@@ -86,7 +86,7 @@ class ChartViewSet(viewsets.ModelViewSet):
 
     queryset = Chart.objects.all()
     serializer_class = ChartSerializer
-    filterset_fields = ('chart_id',)
+    filterset_fields = ('patient',)
 
 class InspectViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
