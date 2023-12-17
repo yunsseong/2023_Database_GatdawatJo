@@ -72,7 +72,7 @@ class ChartViewSet(viewsets.ModelViewSet):
 
     queryset = Chart.objects.all()
     serializer_class = ChartSerializer
-    filterset_fields = ('patient_id',)
+    filterset_fields = ('patient',)
 
 
 class InspectViewSet(viewsets.ModelViewSet):
