@@ -223,7 +223,7 @@ class PhysiotType(models.Model):
         HEAT_THERAPY = "열치료", "열치료"
         CRYOTHERAPY = "얼음치료", "얼음치료"
 
-    physio_id = models.CharField(primary=True, max_length=10)
+    physio_id = models.CharField(primary_key=True, max_length=10)
     physio_name = models.CharField(max_length=15)
     physio_kind = models.CharField(choices=therapyType.choices, max_length=20)
     physio_type = models.CharField(choices=type.choices, max_length=10)
