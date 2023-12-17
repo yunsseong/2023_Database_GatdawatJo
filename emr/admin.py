@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from .models import *
 # Register your models here.
 
@@ -17,3 +18,4 @@ admin.site.register(Disease)
 admin.site.register(Medication)
 admin.site.register(Treatment)
 admin.site.register(Blood)
+admin.site.register(CustomUser, UserAdmin)
