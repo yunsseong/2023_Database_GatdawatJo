@@ -204,8 +204,8 @@ class XRay(models.Model):
         db_table = 'xray'
 
 class Physio(models.Model):
-    physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    physio_type = models.ManyToManyField('PhysiotType', related_name='physios')
+    patient_physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    physio = models.ManyToManyField('PhysioType', related_name='physios')
     physio_value = models.CharField(max_length=10)
 
 class PhysioType(models.Model):
