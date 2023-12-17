@@ -19,9 +19,9 @@ def encrypt_data(data):
     key = base64.urlsafe_b64encode(key)
 
     cipher_suite=Fernet(key)
-    encrypt_data = cipher_suite.encrypt(data.encode())
+    encrypt_data = cipher_suite.encrypt(data.encode('utf-8')).decode('utf-8')
 
-    return encrypt_data.decode()
+    return encrypt_data
 
 class PatientSpecificSerializer(serializers.ModelSerializer):
     class Meta:
