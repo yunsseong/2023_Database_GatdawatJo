@@ -218,7 +218,7 @@ class Physio(models.Model):
         T = "회", "회"
         SET = "세트", "세트"
 
-    class TherapyType(TextChoices):
+    class therapyType(modles.TextChoices):
         EXERCISE = "운동 치료", "운동 치료"
         ELECTRICAL_STIMULATION = "전기 자극 치료", "전기 자극 치료"
         MASSAGE = "마사지 치료", "마사지 치료"
@@ -230,7 +230,7 @@ class Physio(models.Model):
     physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     physio_name = models.CharField(max_length=15)
     physio_desciption = models.TextField()
-    physio_kind = models.CharField(choices=TherapyType.choices, max_length=20, default="운동 치료")
+    physio_kind = models.CharField(choices=therapyType.choices, max_length=20)
     physio_value = models.TextField()
     physio_type = models.CharField(choices=type.choices, max_length=10)
     physio_cost = models.IntegerField()
