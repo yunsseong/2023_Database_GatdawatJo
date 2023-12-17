@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 import secrete_settings
 import base64
-import KEY
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -140,7 +139,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 LOGIN_URL = 'login'
-RESIDENCE_KEY = KEY.SECRET_KEY
+RESIDENCE_KEY = 1
 
 # AWS S3 storage setting
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3BotoStorage'
