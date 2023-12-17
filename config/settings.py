@@ -139,7 +139,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 LOGIN_URL = 'login'
-RESIDENCE_KEY = base64.urlsafe_b64encode(secrete_settings.SECRET_KEY)
+RESIDENCE_KEY = secrete_settings.SECRET_KEY
 
 # AWS S3 storage setting
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3BotoStorage'
