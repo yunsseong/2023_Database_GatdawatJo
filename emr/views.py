@@ -15,9 +15,7 @@ from rest_framework.status import HTTP_200_OK
 from django.contrib.auth import authenticate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad, unpad
-from binascii import Error
+
 
 # class ViewSet(viewsets.ModelViewSet):
 #     queryset = .objects.all()
@@ -26,10 +24,11 @@ from binascii import Error
 class PatientIdentityViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     queryset = PatientIdentity.objects.all()
     serializer_class = PatientIdentitySerializer
     filterset_fields = ('patient_id',)
+    
     
     # def perform_create(self, serializer):
     #     ins = serializer.save()
