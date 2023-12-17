@@ -123,6 +123,11 @@ class ReservationSerializer(serializers.ModelSerializer):
         model = Reservation
         fields = '__all__'
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientSpecificSerializer(instance.patient).data
+        return response
+
 class ImageSerializer(serializers.ModelSerializer):
     image_url = serializers.ImageField(use_url=True)
 
