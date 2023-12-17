@@ -211,7 +211,7 @@ class XRay(models.Model):
     class Meta:
         db_table = 'xray'
 
-class physio(models.Model):
+class Physio(models.Model):
     class type(TextChoices):
         M = "분", "분"
         S = "초", "초"

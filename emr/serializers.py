@@ -113,6 +113,11 @@ class MedicationSerializer(serializers.ModelSerializer):
         model = Medication
         fields = '__all__'
 
+class PhysioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Physio
+        fields = '__all__'
+
 class ImageSerializer(serializers.ModelSerializer):
     image_url = serializers.ImageField(use_url=True)
 
