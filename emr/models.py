@@ -219,12 +219,12 @@ class Physio(models.Model):
         SET = "세트", "세트"
 
     class TherapyType(TextChoices):
-    EXERCISE = "운동 치료", "운동 치료"
-    ELECTRICAL_STIMULATION = "전기 자극 치료", "전기 자극 치료"
-    MASSAGE = "마사지 치료", "마사지 치료"
-    ADAPTIVE_EXERCISE = "적응 운동 치료", "적응 운동 치료"
-    HEAT_THERAPY = "열치료", "열치료"
-    CRYOTHERAPY = "얼음치료", "얼음치료"
+        EXERCISE = "운동 치료", "운동 치료"
+        ELECTRICAL_STIMULATION = "전기 자극 치료", "전기 자극 치료"
+        MASSAGE = "마사지 치료", "마사지 치료"
+        ADAPTIVE_EXERCISE = "적응 운동 치료", "적응 운동 치료"
+        HEAT_THERAPY = "열치료", "열치료"
+        CRYOTHERAPY = "얼음치료", "얼음치료"
 
     
     physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
