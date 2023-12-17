@@ -77,7 +77,7 @@ class MedicalPersonIdentity(models.Model):
 
 class Chart(models.Model):
     chart_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    patient = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
+    patient = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE, related_name='medical_person_identity')
     medical = models.ForeignKey(MedicalPersonIdentity, on_delete=models.CASCADE)
     diagnosis = models.TextField(null=False, default='')
     inspect = models.ManyToManyField('InspectType', related_name='charts')
