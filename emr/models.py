@@ -58,9 +58,8 @@ class ClassificationCode(models.Model):
 
 
 class MedicalPersonIdentity(models.Model):
-    medical_person = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     medical_person_name = models.CharField(max_length=60, blank=False, null=False)
-    medical_person_system_id = models.CharField(max_length=20, blank=False, null=False)
     medical_person_gender = models.CharField(max_length=2, blank=False, null=False)
     medical_person_birthday = models.DateField(blank=False, null=False)
     medical_person_phone_number = models.CharField(max_length=15, blank=False, null=False)
