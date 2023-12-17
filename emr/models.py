@@ -15,6 +15,7 @@ class CustomUser(AbstractUser):
     user_permissions = models.ManyToManyField(
         'auth.Permission', related_name='custom_user_permissions'
     )
+
 class PatientIdentity(models.Model):
     patient_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     patient_name = models.CharField(max_length=60, null=False)
@@ -103,8 +104,6 @@ class Disease(models.Model):
 
     class Meta:
         db_table = "disease"
-
-from django.db import models
 
 class Treatment(models.Model):
     treatment_code = models.CharField(primary_key=True, max_length=50, unique=True)

@@ -1,15 +1,11 @@
 from rest_framework import serializers
 from .models import *
 
-# class a(serializers.ModelSerializer):
-#     class Meta:
-#         model = a
-#         fields = '__all__'
 class PatientIdentitySerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientIdentity
         fields = '__all__'
-        
+
 class PatientSpecificSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientIdentity

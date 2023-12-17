@@ -1,5 +1,3 @@
-import base64
-import os
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -16,11 +14,6 @@ from django.contrib.auth import authenticate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-
-# class ViewSet(viewsets.ModelViewSet):
-#     queryset = .objects.all()
-#     serializer_class = Serializer
-
 class PatientIdentityViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -29,12 +22,6 @@ class PatientIdentityViewSet(viewsets.ModelViewSet):
     serializer_class = PatientIdentitySerializer
     filterset_fields = ('patient_id',)
     
-    
-    # def perform_create(self, serializer):
-    #     ins = serializer.save()
-    #     reception_instance = PatientStatus(patient_id=ins.patient_id, patient_name=ins.patient_name, status="접수")
-    #     reception_instance.save()
-
 class PatientListViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -48,7 +35,7 @@ class ReceptionViewSet(viewsets.ModelViewSet):
 
     queryset = Reception.objects.all()
     serializer_class = ReceptionSerializer
-    filterset_fields = ('patient_id',)
+    filterset_fields = ('paitent',)
 
     # def perform_create(self, serializer):
     #     print(self.request)
