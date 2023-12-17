@@ -129,6 +129,7 @@ class BloodViewSet(viewsets.ModelViewSet):
 
     queryset = Blood.objects.all()
     serializer_class = BloodSerializer
+    filterset_fields = ('patient',)
 
 class DiseaseViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]

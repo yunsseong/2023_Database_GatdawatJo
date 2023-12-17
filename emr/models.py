@@ -183,7 +183,7 @@ class Inbody(models.Model):
 
 class Blood(models.Model):
     blood_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    patient_id = models.ForeignKey('PatientIdentity', on_delete=models.PROTECT)
+    patient = models.ForeignKey('PatientIdentity', on_delete=models.PROTECT)
     hemoglobin = models.FloatField(verbose_name='혈색소')
     fasting_blood_sugar = models.FloatField(verbose_name='공복혈당')
     total_cholesterol = models.FloatField(verbose_name='총 콜레스트롤')
