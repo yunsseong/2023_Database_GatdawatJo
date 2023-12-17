@@ -22,24 +22,31 @@ class PatientIdentityViewSet(viewsets.ModelViewSet):
     serializer_class = PatientIdentitySerializer
     filterset_fields = ('patient_id',)
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        decrypted_residence_number = decrypt_data(instance.patient_residence_number)
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
 
-        # 다른 필드들도 복호화하여 응답에 추가
-        response_data = {
-            'patient_id': instance.patient_id,
-            'patient_name': instance.patient_name,
-            'patient_gender': instance.patient_gender,
-            'patient_birth': instance.patient_birth,
-            'patient_residence_number': decrypted_residence_number,
-            'patient_phone_number': instance.patient_phone_number,
-            'patient_emergency_phone_number': instance.patient_emergency_phone_number,
-            'patient_address': instance.patient_address,
-            'patient_agree_essential_term': instance.patient_agree_essential_term,
-            'patient_agree_optional_term': instance.patient_agree_optional_term,
-        }
-        return Response(response_data)
+        decrypted_data = []
+        for instance in queryset:
+            # 암호화된 필드 복호화 작업
+            decrypted_residence_number = decrypt_data(instance.patient_residence_number)
+
+
+            response_data = {
+                'patient_id': instance.patient_id,
+                'patient_name': instance.patient_name,
+                'patient_gender': instance.patient_gender,
+                'patient_birth': instance.patient_birth,
+                'patient_residence_number': decrypted_residence_number,
+                'patient_phone_number': instance.patient_phone_number,
+                'patient_emergency_phone_number': instance.patient_emergency_phone_number,
+                'patient_address': instance.patient_address,
+                'patient_agree_essential_term': instance.patient_agree_essential_term,
+                'patient_agree_optional_term': instance.patient_agree_optional_term,
+
+            }
+            decrypted_data.append(response_data)
+
+        return Response(decrypted_data, status=status.HTTP_200_OK)
     
 class PatientListViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
