@@ -2,14 +2,11 @@ from django.db import models
 import uuid
 
 from django.db.models import TextChoices
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 from cryptography.fernet import Fernet
 
-class CustomUser(AbstractUser):
-    # 추가 필드 등 사용자 모델 커스터마이징
-    name = models.CharField(max_length=100)
 
 class PatientIdentity(models.Model):
     patient_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -54,7 +51,7 @@ class ClassificationCode(models.Model):
 
 
 class MedicalPersonIdentity(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     medical_person_name = models.CharField(max_length=60, blank=False, null=False)
     medical_person_gender = models.CharField(max_length=2, blank=False, null=False)
     medical_person_birthday = models.DateField(blank=False, null=False)
