@@ -70,6 +70,14 @@ class ChartSerializer(serializers.ModelSerializer):
         response['patient'] = PatientIdentitySerializer(instance.patient).data
         return response
 
+    def to_internal_value(self, data):
+        # 'disease', 'inspect', 'treatment', 'medication' 필드를 처리하여 단일 값으로 변경
+        for field_name in ['disease', 'inspect', 'treatment', 'medication']:
+            field_value = data.get(field_name)
+            if isinstance(field_value, list) and len(field_value) == 1:
+                data[field_name] = field_value[0]  # 리스트 안에 한 개 값이면 해당 값을 단일 값으로 변경
+        return super().to_internal_value(data)
+
 class InspectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Inspect
