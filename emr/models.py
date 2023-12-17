@@ -208,7 +208,7 @@ class Physio(models.Model):
     physio_type = models.ManyToManyField('PhysiotType', related_name='physios')
     physio_value = models.CharField(max_length=10)
 
-class PhysiotType(models.Model):
+class PhysioType(models.Model):
     class type(TextChoices):
         M = "분", "분"
         S = "초", "초"
