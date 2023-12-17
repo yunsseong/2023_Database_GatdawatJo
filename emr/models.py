@@ -237,3 +237,13 @@ class Physio(models.Model):
 
     class Meta:
         db_table = 'physio' 
+
+class Reservation(models.Model):
+    reservation_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    patient_id = models.ForeignKey(PatientIdentity, on_delete=models.CASCADE)
+    date = models.TextField()
+    hour = models.TextField()
+    minute = models.TextField()
+
+    class Meta:
+        db_table = 'reservation'

@@ -119,6 +119,11 @@ class PhysioSerializer(serializers.ModelSerializer):
         model = Physio
         fields = '__all__'
 
+class ReservationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = '__all__'
+
 class ImageSerializer(serializers.ModelSerializer):
     image_url = serializers.ImageField(use_url=True)
 

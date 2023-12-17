@@ -82,6 +82,13 @@ class InspectViewSet(viewsets.ModelViewSet):
     queryset = Inspect.objects.all()
     serializer_class = InspectSerializer
 
+class ReservationViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer
+
 class InspectTypeViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
