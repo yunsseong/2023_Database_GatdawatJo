@@ -21,7 +21,7 @@ class PatientIdentity(models.Model):
     patient_name = models.CharField(max_length=60, null=False)
     patient_gender = models.CharField(max_length=1, blank=False, null=False)
     patient_birth = models.CharField(max_length=8, blank=False, null=False)
-    patient_residence_number = models.CharField(max_length=8, blank=False, null=False)
+    patient_residence_number = models.CharField(max_length=100, blank=False, null=False)
     patient_phone_number = models.CharField(max_length=15, blank=False, null=False)
     patient_emergency_phone_number = models.CharField(max_length=15)
     patient_address = models.CharField(max_length=100)
