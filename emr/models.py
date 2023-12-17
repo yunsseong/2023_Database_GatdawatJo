@@ -203,7 +203,12 @@ class XRay(models.Model):
     class Meta:
         db_table = 'xray'
 
-class Physio(models.Model):
+class Physio(model.Model):
+    physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    physio_type = models.ManyToManyField('PhysiotType', related_name='physios')
+    physio_value = models.CharField(max_length=10)
+
+class PhysiotType(models.Model):
     class type(TextChoices):
         M = "분", "분"
         S = "초", "초"
@@ -218,12 +223,9 @@ class Physio(models.Model):
         HEAT_THERAPY = "열치료", "열치료"
         CRYOTHERAPY = "얼음치료", "얼음치료"
 
-    
-    physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    physio_id = models.CharField(primary=True, max_length=10)
     physio_name = models.CharField(max_length=15)
-    physio_desciption = models.TextField()
     physio_kind = models.CharField(choices=therapyType.choices, max_length=20)
-    physio_value = models.TextField()
     physio_type = models.CharField(choices=type.choices, max_length=10)
     physio_cost = models.IntegerField()
 

@@ -173,6 +173,13 @@ class PhysioViewSet(viewsets.ModelViewSet):
     queryset = Physio.objects.all()
     serializer_class = PhysioSerializer
 
+class PhysioTypeViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    queryset = PhysiotType.objects.all()
+    serializer_class = PhysioTypeSerializer
+
 class CreateMedicalProfessional(APIView):
     def post(self, request):
         user_serializer = CustomUserSerializer(data=request.data['user'])

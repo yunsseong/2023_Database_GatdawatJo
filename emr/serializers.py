@@ -126,6 +126,16 @@ class PhysioSerializer(serializers.ModelSerializer):
         model = Physio
         fields = '__all__'
 
+    def to_representation(self, instance):
+            response = super().to_representation(instance)
+            response['physio_type'] = PhysioTypeSerializer(instance.physio_type).data
+            return response
+
+class PhysioTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PhysiotType
+        fields = '__all__'
+
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
