@@ -203,14 +203,6 @@ class XRay(models.Model):
     class Meta:
         db_table = 'xray'
 
-class PatientPhysio(models.Model):
-    patient_physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    physio = models.ManyToManyField('PhysioType', related_name='physios')
-    physio_value = models.CharField(max_length=10)
-
-    class Meta:
-        db_table = 'patient_physio'
-
 class PhysioType(models.Model):
     class type(TextChoices):
         M = "분", "분"
@@ -233,7 +225,17 @@ class PhysioType(models.Model):
     physio_cost = models.IntegerField()
 
     class Meta:
-        db_table = 'physio' 
+        db_table = 'physio_type' 
+
+    
+class PatientPhysio(models.Model):
+    patient_physio_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    physio = models.ManyToManyField('PhysioType', related_name='physios')
+    physio_value = models.CharField(max_length=10)
+
+    class Meta:
+        db_table = 'patient_physio'
+
 
 class Reservation(models.Model):
     reservation_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
