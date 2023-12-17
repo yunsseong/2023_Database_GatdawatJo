@@ -49,7 +49,7 @@ class ReceptionViewSet(viewsets.ModelViewSet):
 
     queryset = Reception.objects.all()
     serializer_class = ReceptionSerializer
-    filterset_fields = ('patient',)
+    filterset_fields = ('patient_id',)
 
     # def perform_create(self, serializer):
     #     print(self.request)
@@ -86,7 +86,8 @@ class ChartViewSet(viewsets.ModelViewSet):
 
     queryset = Chart.objects.all()
     serializer_class = ChartSerializer
-    filterset_fields = ('patient__patient_id',)
+    filterset_fields = ('patient_id',)
+
 
 class InspectViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
@@ -108,7 +109,7 @@ class InbodyViewSet(viewsets.ModelViewSet):
 
     queryset = Inbody.objects.all()
     serializer_class = InbodySerializer
-    filterset_fields = ('patient',)
+    filterset_fields = ('patient_id',)
 
 class BloodViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
