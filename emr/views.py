@@ -60,6 +60,7 @@ class InspectTypeViewSet(viewsets.ModelViewSet):
 class InbodyViewSet(viewsets.ModelViewSet):
     queryset = Inbody.objects.all()
     serializer_class = InbodySerializer
+    filterset_fields = ('patient',)
 
 class BloodViewSet(viewsets.ModelViewSet):
     queryset = Blood.objects.all()

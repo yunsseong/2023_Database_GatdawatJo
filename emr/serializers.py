@@ -72,6 +72,11 @@ class InbodySerializer(serializers.ModelSerializer):
         model = Inbody
         fields = '__all__'
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['patient'] = PatientIdentitySerializer(instance.patient).data
+        return response
+
 class BloodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blood
