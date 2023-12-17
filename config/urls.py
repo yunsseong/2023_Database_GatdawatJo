@@ -24,4 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('register_user/', CreateMedicalProfessional.as_view(), name='create_medical_person'),
+    path('api/token/', CustomAuthToken.as_view(), name='custom_token_obtain'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

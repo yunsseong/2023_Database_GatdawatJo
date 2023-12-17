@@ -11,6 +11,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.status import HTTP_200_OK
 from django.contrib.auth import authenticate
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 # class ViewSet(viewsets.ModelViewSet):
@@ -18,6 +20,9 @@ from django.contrib.auth import authenticate
 #     serializer_class = Serializer
 
 class PatientIdentityViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = PatientIdentity.objects.all()
     serializer_class = PatientIdentitySerializer
     filterset_fields = ('patient_id',)
@@ -28,10 +33,16 @@ class PatientIdentityViewSet(viewsets.ModelViewSet):
     #     reception_instance.save()
 
 class PatientListViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = PatientList.objects.all()
     serializer_class = PatientListSerializer
 
 class ReceptionViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Reception.objects.all()
     serializer_class = ReceptionSerializer
     filterset_fields = ('patient',)
@@ -41,44 +52,92 @@ class ReceptionViewSet(viewsets.ModelViewSet):
     #     serializer.save(patient = self.request.patient)
 
 class MedicalPersonIdentityViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = MedicalPersonIdentity.objects.all()
     serializer_class = MedicalPersonIdentitySerializer
 
+    def retrieve(self, request, pk=None):
+        try:
+            token_key = request.headers['Authorization'].split(' ')[1]  # 토큰 추출
+            token = Token.objects.get(key=token_key)  # 토큰으로 사용자 식별
+            user = token.user
+
+            # MedicalPersonIdentity와 request에서 추출한 사용자 비교
+            medical_person_identity = MedicalPersonIdentity.objects.get(user=user)
+
+            # 사용자와 MedicalPersonIdentity의 사용자가 일치하는 경우
+            if medical_person_identity.user == request.user:
+                serializer = self.serializer_class(medical_person_identity)
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_403_FORBIDDEN)  # 권한 없음
+        except (KeyError, Token.DoesNotExist, MedicalPersonIdentity.DoesNotExist):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 class ChartViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Chart.objects.all()
     serializer_class = ChartSerializer
     filterset_fields = ('patient',)
 
 class InspectViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Inspect.objects.all()
     serializer_class = InspectSerializer
 
 class InspectTypeViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = InspectType.objects.all()
     serializer_class = InspectTypeSerializer
 
 class InbodyViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Inbody.objects.all()
     serializer_class = InbodySerializer
     filterset_fields = ('patient',)
 
 class BloodViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Blood.objects.all()
     serializer_class = BloodSerializer
 
 class DiseaseViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Disease.objects.all()
     serializers_class = DiseaseSerializer
 
 class TreatmentViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Treatment.objects.all()
     serializers_class = TreatmentSerializer
 
 class MedicationViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Medication.objects.all()
     serializers_class = MedicationSerializer
 
 class Image(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Image.objects.all()
     serializers_class = ImageSerializer
 
