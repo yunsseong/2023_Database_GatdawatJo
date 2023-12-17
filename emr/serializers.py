@@ -14,11 +14,6 @@ class PatientIdentitySerializer(serializers.ModelSerializer):
         validated_data['patient_residence_number'] = encrypted_residence_number
         return super().create(validated_data)
 
-    def get_decrypted_residence_number(self, obj):
-        encrypted_residence_number = obj.patient_residence_number  # 암호화된 주민번호 필드
-        decrypted_residence_number = decrypt_data(encrypted_residence_number)
-        return decrypted_residence_number
-
 def encrypt_data(data):
     key = settings.RESIDENCE_KEY
 
