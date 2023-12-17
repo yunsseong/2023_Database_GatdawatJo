@@ -89,7 +89,7 @@ class BloodSerializer(serializers.ModelSerializer):
 
 class DiseaseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Image
+        model = Disease
         fields = '__all__'
 
 class TreatmentSerializer(serializers.ModelSerializer):
