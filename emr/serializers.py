@@ -16,6 +16,7 @@ class PatientIdentitySerializer(serializers.ModelSerializer):
 
 def encrypt_data(data):
     key = b'UGpKRkN6eGxiUk5DcU9WMWczVjNjVFAyMnptM2QxbEdwNTZCNVU3NjVNMD0='
+    key = base64.urlsafe_b64encode(key)
 
     cipher_suite=Fernet(key)
     encrypt_data = cipher_suite.encrypt(data.encode('utf-8')).decode('utf-8')
