@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from cryptography.fernet import Fernet
 from .models import *
 
 class PatientIdentitySerializer(serializers.ModelSerializer):
