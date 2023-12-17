@@ -8,13 +8,8 @@ from django.conf import settings
 from cryptography.fernet import Fernet
 
 class CustomUser(AbstractUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # 추가 필드 등 사용자 모델 커스터마이징
     name = models.CharField(max_length=100)
-    groups = models.ManyToManyField('auth.Group', related_name='custom_user_groups')
-    user_permissions = models.ManyToManyField(
-        'auth.Permission', related_name='custom_user_permissions'
-    )
 
 class PatientIdentity(models.Model):
     patient_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
