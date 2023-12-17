@@ -6,6 +6,19 @@ class PatientIdentitySerializer(serializers.ModelSerializer):
         model = PatientIdentity
         fields = '__all__'
 
+    def create(self, validated_data):
+        residence_number = validated_data.get('patient_residence_number')
+        encrypted_residence_number = encrypt_data(residence_number)
+        validated_data['patient_residence_number'] = encrypted_residence_number
+        return super().create(validated_data)
+
+def encrypt_data(data):
+    key = settings.RESIDENCE_KEY
+    cipher_suite=Fernet(key)
+    encrypt_data = cipher_suite.encrypt(data.encode())
+
+    return encrypt_data.decode()
+
 class PatientSpecificSerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientIdentity

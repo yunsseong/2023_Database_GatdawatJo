@@ -5,7 +5,7 @@ from django.db.models import TextChoices
 from django.contrib.auth.models import AbstractUser
 from rest_framework.authtoken.models import Token
 from django.conf import settings
-
+from cryptography.fernet import Fernet
 
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -21,13 +21,12 @@ class PatientIdentity(models.Model):
     patient_name = models.CharField(max_length=60, null=False)
     patient_gender = models.CharField(max_length=1, blank=False, null=False)
     patient_birth = models.CharField(max_length=8, blank=False, null=False)
-    patient_residence_number = models.CharField(max_length=8, blank=False, null=False)
     patient_phone_number = models.CharField(max_length=15, blank=False, null=False)
     patient_emergency_phone_number = models.CharField(max_length=15)
     patient_address = models.CharField(max_length=100)
     patient_agree_essential_term = models.BooleanField(default=False)
     patient_agree_optional_term = models.BooleanField(default=False)
-
+    patient_residence_number = models.CharField(max_length=8, blank=False, null=False)
     class Meta:
         db_table = 'patient_identity'
 
