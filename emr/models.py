@@ -223,7 +223,7 @@ class PhysioType(models.Model):
     physio_kind = models.CharField(choices=therapyType.choices, max_length=20)
     physio_type = models.CharField(choices=type.choices, max_length=10)
     physio_cost = models.IntegerField()
-    phsio_v = models.CharField(max_length=10)
+    phsio_v = models.CharField(max_length=10, default = "")
 
     class Meta:
         db_table = 'physio_type' 
