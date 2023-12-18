@@ -62,6 +62,9 @@ class MedicalPersonIdentitySerializer(serializers.ModelSerializer):
 
 
 class ChartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chart
+        fields = '__all__'
     def to_internal_value(self, data):
         modified_data = super().to_internal_value(data)
         for field_name in ['inspect', 'disease', 'treatment', 'medication']:
