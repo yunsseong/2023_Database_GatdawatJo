@@ -86,7 +86,7 @@ class Chart(models.Model):
         db_table = 'chart'
 
 class Disease(models.Model):
-    disease_code = models.CharField(primary_key=True, max_length=50, unique=True)
+    disease_code = models.CharField(max_length=50, unique=True)
     disease_name = models.CharField(max_length=200)
     disease_description = models.TextField()
 
