@@ -74,22 +74,18 @@ class MedicalPersonIdentityViewSet(viewsets.ModelViewSet):
     queryset = MedicalPersonIdentity.objects.all()
     serializer_class = MedicalPersonIdentitySerializer
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, *args, **kwargs):
         try:
-            token_key = request.headers['Authorization'].split(' ')[1]  # 토큰 추출
-            token = Token.objects.get(key=token_key)  # 토큰으로 사용자 식별
-            user = token.user
+            user = request.user  # 토큰을 통해 인증된 사용자
 
-            # MedicalPersonIdentity와 request에서 추출한 사용자 비교
+            # 사용자 정보를 기반으로 MedicalPersonIdentity를 조회
             medical_person_identity = MedicalPersonIdentity.objects.get(user=user)
 
-            # 사용자와 MedicalPersonIdentity의 사용자가 일치하는 경우
-            if medical_person_identity.user == request.user:
-                serializer = self.serializer_class(medical_person_identity)
-                return Response(serializer.data)
-            else:
-                return Response(status=status.HTTP_403_FORBIDDEN)  # 권한 없음
-        except (KeyError, Token.DoesNotExist, MedicalPersonIdentity.DoesNotExist):
+            # MedicalPersonIdentity에서 필요한 정보를 직렬화하여 반환
+            serializer = self.get_serializer(medical_person_identity)
+            return Response(serializer.data)
+
+        except MedicalPersonIdentity.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 class ChartViewSet(viewsets.ModelViewSet):
