@@ -13,7 +13,7 @@ from rest_framework.status import HTTP_200_OK
 from django.contrib.auth import authenticate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import generics
 class PatientIdentityViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -213,3 +213,16 @@ class CustomAuthToken(ObtainAuthToken):
         else:
             # 아이디 또는 비밀번호가 전송되지 않은 경우 오류 응답 반환
             return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+
+class MedicalPersonInfoView(generics.RetrieveAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = MedicalPersonIdentitySerializer
+
+    def get_object(self):
+        user = self.request.user
+        try:
+            medical_person_identity = MedicalPersonIdentity.objects.get(user=user)
+            return medical_person_identity
+        except MedicalPersonIdentity.DoesNotExist:
+            return None
