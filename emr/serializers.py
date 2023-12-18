@@ -61,35 +61,15 @@ class MedicalPersonIdentitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+User
 class ChartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chart
         fields = '__all__'
-    def to_internal_value(self, data):
-        modified_data = super().to_internal_value(data)
-        for field_name in ['inspect', 'disease', 'treatment', 'medication']:
-            field_value = modified_data.get(field_name)
-            if isinstance(field_value, list) and len(field_value) == 1:
-                modified_data[field_name] = field_value[0]
-
-        # 수정된 데이터를 인스턴스 변수에 저장
-        self.processed_data = modified_data
-
-        return modified_data
 
     def to_representation(self, instance):
-        if hasattr(self, 'processed_data'):
-            # 만약 처리된 데이터가 있다면 이를 사용하여 표현을 진행
-            response = self.processed_data
-        else:
-            # 처리된 데이터가 없으면 기본 to_representation 사용
-            response = super().to_representation(instance)
-
+        response = super().to_representation(instance)
         response['patient'] = PatientIdentitySerializer(instance.patient).data
-
-        # 처리된 데이터에 따라서 추가적인 처리 가능
-        # 예를 들어, 수정된 데이터에 따라 response 수정
-
         return response
 
 
